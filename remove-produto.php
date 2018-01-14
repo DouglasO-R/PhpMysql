@@ -1,13 +1,23 @@
 <?php
-include_once "banco-produtos.php";
 include ("cabecalho.php");
 
+$produto = new Produto();
 
-$id = $_POST["id"];
+verificaLogado();
 
-removeProduto($conexao , $id);
-header("Location: produto-lista.php?removido=true");
+$produto->id = $_POST["id"];
 
+if(removeProduto($conexao , $produto) == false)
+{
+    $_SESSION["success"] = "removido com suceso";
+    header("Location: produto-lista.php");
+}else {
+    $_SESSION["danger"] = "nao foi possivel remover";
+    header("Location: produto-lista.php");
+}
+
+
+    
 ?>
 
 

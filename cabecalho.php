@@ -1,8 +1,12 @@
 <?php
-include_once "conecta.php";
+require_once "conecta.php";
+require_once "banco-produtos.php";
+require_once "banco-categorias.php";
+require_once "logica-usuario.php";
+require_once "alerta.php";
 
 function CarregaClasse($NomeDaClasse){
-    require_once ($NomeDaClasse.".php");
+    require_once ("class/".$NomeDaClasse.".php");
 }
 spl_autoload_register("CarregaClasse");
 ?>

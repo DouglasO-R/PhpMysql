@@ -1,9 +1,9 @@
 <?php
 
-function insereProduto($conexao , $nome , $preco, $descricao, $categoria_id, $usado)
+function insereProduto($conexao ,$produto)
 {
     $query = "insert into produtos (nome, preco, descricao,categoria_id, usado) 
-    values ('{$nome}', {$preco}, '{$descricao}',{$categoria_id},{$usado})";  
+    values ('{$produto->nome}', {$produto->preco}, '{$produto->descricao}',{$produto->categoria_id},{$produto->usado})";  
        
     $stmt = $conexao->prepare($query);
     $resultadoInsercao = $stmt->execute();
@@ -16,13 +16,13 @@ function listaProdutos($conexao)
     produtos as p join categorias as c on p.categoria_id = c.id";
     $stmt = $conexao->prepare($query);
     $stmt->execute();
-    $produtos = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    $produtos = $stmt->fetchALL(PDO::FETCH_OBJ);
     return $produtos;
 }
 
-function removeProduto($conexao , $id)
+function removeProduto($conexao , $produto)
 {
-   $query = "delete from produtos where id = {$id}" ;
+   $query = "delete from produtos where id = {$produto->id}" ;
    $stmt = $conexao->prepare($query);
    $stmt->execute();
 }
@@ -36,10 +36,10 @@ function buscaProduto($conexao, $id)
     return $resultado;
 }
 
-function alterarProduto($conexao ,$id,  $nome , $preco, $descricao, $categoria_id, $usado)
+function alterarProduto($conexao ,$produto)
 {
-    $query = "update produtos set nome = '{$nome}', preco = {$preco}, descricao = '{$descricao}', 
-    categoria_id= {$categoria_id}, usado = {$usado} where id = '{$id}'";
+    $query = "update produtos set nome = '{$produto->nome}', preco = {$produto->preco}, descricao = '{$produto->descricao}', 
+    categoria_id= {$produto->categoria_id}, usado = {$produto->usado} where id = '{$produto->id}'";
 
     $stmt = $conexao->prepare($query);
     $alterar = $stmt->execute();

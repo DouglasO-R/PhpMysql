@@ -1,14 +1,17 @@
 <?php
-include_once "conecta.php";
-include_once "banco-usuarios.php";
+include_once "cabecalho.php";
+
 
 $email = $_POST["email"];
 $senha = $_POST["senha"];
 
-$usuariologado = buscaUsuario($conexao, $email, $senha);
+$usuario = buscaUsuario($conexao, $email, $senha);
 
-if($usuariologado){
-    header("Location:index.php?login=1");
+if($usuario == null){
+    $_SESSION["danger"] = "vc nao tem acesso"; 
+    header("Location:index.php");    
 } else {
-    header("Location: index.php?login=0");
+    $_SESSION["success"] = "logado com sucesso";
+    header("Location: index.php");
+    logaUsuario($email);
 }

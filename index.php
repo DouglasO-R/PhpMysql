@@ -1,12 +1,9 @@
 <?php
-include_once "cabecalho.php";  
+require_once "cabecalho.php";  
 
 Alerta("danger");
 Alerta("success");
 ?>
-
-
-
 
 <h1>Bem vindo!</h1>
 
@@ -40,7 +37,6 @@ Alerta("success");
 <?php
     }
 ?>
-
 
 <?php
 include_once "rodape.php";  

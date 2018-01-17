@@ -2,6 +2,7 @@
 require_once "conecta.php";
 require_once "banco-produtos.php";
 require_once "banco-categorias.php";
+require_once "banco-usuarios.php";
 require_once "logica-usuario.php";
 require_once "alerta.php";
 

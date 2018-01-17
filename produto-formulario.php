@@ -4,7 +4,13 @@ include_once "cabecalho.php";
 
 
 $categorias = listaCategorias($conexao);
-$produto = array("nome" => "", "descricao" => "", "preco" => "", "categoria_id" => "1");
+
+$categoria = new Categoria();
+$categoria->id = 1;
+
+$produto = new Produto();
+$produto->categoria = $categoria;
+
 $usado = "";
 verificaLogado();
 

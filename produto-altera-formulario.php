@@ -2,12 +2,14 @@
 require_once ("cabecalho.php"); 
 
 
+
 $id = $_GET["id"];
 $produto = buscaProduto($conexao, $id);
 $categorias = listaCategorias($conexao);
 
 
-$usado = $produto["usado"] ? "checked = 'checked'" : ""; 
+$selecao_usado = $produto->usado ? "checked = 'checked'" : ""; 
+$produto->usado = $selecao_usado;
 
 verificaLogado();
 
@@ -18,7 +20,7 @@ verificaLogado();
 
         <?php include("formulario-base.php"); ?> 
 
-        <input type="hidden" name="id" value="<?=$produto['id']?>" />
+        <input type="hidden" name="id" value="<?=$produto->id?>" />
         </table>
     </form>
 <?php include("rodape.php"); ?>

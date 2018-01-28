@@ -1,15 +1,24 @@
 <?php
 include_once "cabecalho.php";  
+include_once "class/Categoria.php";
+include_once "class/ICategoria.php";
+include_once "class/Produto.php";
+include_once "class/IProduto.php";
+include_once "class/ServiceCategoria.php";
+include_once "class/IServiceCategoria.php";
 
-
-
-$categorias = listaCategorias($conexao);
 
 $categoria = new Categoria();
-$categoria->id = 1;
+$categoria->setId(1);
+
+$serviceC = new ServiceCategoria($conexao,$categoria);
+
+$categorias = $serviceC->listaCategorias();
+
+
 
 $produto = new Produto();
-$produto->categoria = $categoria;
+$produto->setCategoria($categoria);
 
 $usado = "";
 verificaLogado();

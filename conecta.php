@@ -1,3 +1,5 @@
 <?php
+require_once("class/Conn.php");
+require_once("class/IConn.php");
 
-$conexao = new PDO("mysql:host=localhost;dbname=loja","root",""); 
+$conexao = new Conn("mysql","localhost","loja","root",""); 

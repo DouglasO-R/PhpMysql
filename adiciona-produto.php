@@ -1,32 +1,40 @@
 <?php
-   include_once "cabecalho.php";
+include_once "cabecalho.php";
+include_once "class/Categoria.php";
+include_once "class/ICategoria.php";
+include_once "class/Produto.php";
+include_once "class/IProduto.php";
+include_once "class/ServiceProduto.php";
+include_once "class/IServiceProduto.php";
  
    verificaLogado();
 
     $produto = new Produto();
     $categoria = new Categoria();
-    $categoria->id = $_POST["categoria_id"];
+    $categoria->setId($_POST["categoria_id"]);
 
-    $produto->nome = $_POST["nome"];
-    $produto->preco = $_POST["preco"];
-    $produto->descricao = $_POST["descricao"];
-    $produto->categoria = $categoria;
-    $produto->usado = $_POST["usado"];
+    $produto->setNome($_POST["nome"]);
+    $produto->setPreco($_POST["preco"]);
+    $produto->setDescricao($_POST["descricao"]);
+    $produto->setCategoria($categoria);
+    $produto->setUsado($_POST["usado"]);
 
     if(array_key_exists('usado',$_POST)){
-        $produto->usado = "true";
+        $produto->setUsado("true");
     } else {
-        $produto->usado = "false";
+        $produto->setUsado("false");
     }
 
-if(insereProduto($conexao, $produto)) {
-?>
-<p class="alert-success">Produto <?= $produto->nome; ?>, <?= $produto->preco; ?> adicionado com sucesso!</p>
-<?php
-} else {
-?>
-<p class="alert-danger">O produto <?= $produto->nome; ?> não foi adicionado</p>
-<?php
-}
-?>
+    $serviceP = new ServiceProduto($conexao,$produto);
+
+    if($serviceP->insereProduto()) {
+    ?>
+        <p class="alert-success">Produto <?= $produto->getNome(); ?>, <?= $produto->getPreco(); ?> adicionado com sucesso!</p>
+    <?php
+         } else {
+    ?>
+        <p class="alert-danger">O produto <?= $produto->getNome(); ?> não foi adicionado</p>
+    <?php
+        }
+    ?>
     

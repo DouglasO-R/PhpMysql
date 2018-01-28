@@ -1,10 +1,17 @@
 <?php
 include_once "cabecalho.php"; 
+include_once "class/Produto.php";
+include_once "class/IProduto.php";
+include_once "class/ServiceProduto.php";
+include_once "class/IServiceProduto.php";
 
 Alerta("danger");
 Alerta("success");
 
-$Produtos = listaProdutos($conexao);
+$produto = new Produto();
+$serviceP = new ServiceProduto($conexao,$produto);
+
+$Produtos = $serviceP->listaProdutos();
 
 ?>
 
@@ -16,15 +23,15 @@ foreach($Produtos as $produto) {
 ?>
 
     <tr>
-        <td><?= $produto->nome ?></td>
-        <td><?= $produto->preco ?></td>
-        <td><?= substr($produto->descricao, 0, 15) ?></td>
-        <td><?= $produto->categoria->nome ?></td>
-        <td><a class="btn btn-primary" href="produto-altera-formulario.php?id=<?=$produto->id?>">alterar</a>
+        <td><?= $produto->getNome() ?></td>
+        <td><?= $produto->getPreco() ?></td>
+        <td><?= substr($produto->getDescricao(), 0, 15) ?></td>
+        <td><?= $produto->getCategoria()->getNome() ?></td>
+        <td><a class="btn btn-primary" href="produto-altera-formulario.php?id=<?=$produto->getId()?>">alterar</a>
 
         <td>
             <form action="remove-produto.php" method="post">
-                <input type="hidden" name="id" value="<?=$produto->id?>" />
+                <input type="hidden" name="id" value="<?=$produto->getId()?>" />
                 <button class="btn btn-danger">remover</button>
             </form>
         </td>       

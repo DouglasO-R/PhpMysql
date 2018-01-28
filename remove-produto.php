@@ -1,13 +1,20 @@
 <?php
-include ("cabecalho.php");
+include_once ("cabecalho.php");
+include_once "class/Produto.php";
+include_once "class/IProduto.php";
+include_once "class/ServiceProduto.php";
+include_once "class/IServiceProduto.php";
 
-$produto = new Produto();
+
 
 verificaLogado();
 
-$produto->id = $_POST["id"];
+$produto = new Produto();
+$produto->setId($_POST["id"]);
 
-if(removeProduto($conexao , $produto) == false)
+$serviceP = new ServiceProduto($conexao,$produto);
+
+if($serviceP->removeProduto() == false)
 {
     $_SESSION["success"] = "removido com suceso";
     header("Location: produto-lista.php");

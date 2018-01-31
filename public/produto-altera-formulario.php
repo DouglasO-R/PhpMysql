@@ -1,21 +1,18 @@
 <?php 
-
-namespace Source;
-
 require_once "cabecalho.php"; 
 
  
 
-$produtoA = new Produto();
-$produtoA->setId($_GET["id"]);
+$produto = $container['produto'];
+$produto->setId($_GET["id"]);
 
-$serviceP = new ServiceProduto($conexao,$produtoA);
-$produto = $serviceP->buscaProduto();
 
-$categoria = new Categoria();
-$serviceC = new ServiceCategoria($conexao,$categoria);
+$produto = $container['ServiceProduto']->buscaProduto();
 
-$categorias = $serviceC->listaCategorias();
+$categoria = $container['categoria'];
+
+
+$categorias = $container['ServiceCategoria']->listaCategorias();
 
 
 $selecao_usado = $produto->getUsado() ? "checked = 'checked'" : ""; 

@@ -1,11 +1,9 @@
 <?php
 
-namespace Source;
-
 include_once "cabecalho.php";
 
-  $produto = new Produto();
-  $categoria = new Categoria();
+  $produto = $container['produto'];
+  $categoria = $container['categoria'];
   
   $categoria->setId($_POST['categoria_id']);
 
@@ -16,7 +14,7 @@ include_once "cabecalho.php";
   $produto->setCategoria($categoria);
 
 
-  //header("Location: produto-lista.php");
+  header("Location: produto-lista.php");
 
   if(array_key_exists('usado', $_POST)) {
       $produto->setUsado("true");
@@ -24,10 +22,10 @@ include_once "cabecalho.php";
       $produto->setUsado("false");
   }
   
-  $serviceP = new \Source\ServiceProduto($conexao,$produto);
+  //$serviceP = new \Source\ServiceProduto($conexao,$produto);
   
 
-  if($serviceP->alterarProduto()) { ?>
+  if($container['ServiceProduto']->alterarProduto()) { ?>
       <p class="text-success">O produto <?= $produto->getNome() ?>, <?= $produto->getPreco() ?> foi alterado.</p>
   <?php } else {
        ?>

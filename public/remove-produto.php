@@ -1,19 +1,18 @@
 <?php
-
-namespace Source;
-
 include_once "cabecalho.php";
 
 
 
 verificaLogado();
 
-$produto = new Produto();
+$produto = $container['produto'];
 $produto->setId($_POST["id"]);
 
-$serviceP = new ServiceProduto($conexao,$produto);
 
-if($serviceP->removeProduto() == false)
+
+//$serviceP = new ServiceProduto($conexao,$produto);
+
+if($container['ServiceProduto']->removeProduto() == false)
 {
     $_SESSION["success"] = "removido com suceso";
     header("Location: produto-lista.php");

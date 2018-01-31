@@ -1,17 +1,17 @@
 <?php
-
-namespace Source;
-
 include_once "cabecalho.php";
-require_once "../vendor/autoload.php";
 
-$usuario = new Usuario();
+
+//$usuario = new Usuario();
+$usuario = $container['usuario'];
 $usuario->setEmail($_POST["email"])
 		->setSenha($_POST["senha"]);
 
-$service = new ServiceUsuario($conexao,$usuario);
+//$service = new \Source\ServiceUsuario($conexao,$usuario); faz a declaração do patch qnd o escopo for global,caso use namespace nao se faz necessario a declaração do patch
+//$service = new \Source\ServiceUsuario($conexao,$usuario);
 
-if($service->buscaUsuario() == null){
+$busca = $container['ServiceUsuario']->buscaUsuario();
+if($busca == null){
     $_SESSION["danger"] = "vc nao tem acesso"; 
     header("Location:index.php");    
 } else {

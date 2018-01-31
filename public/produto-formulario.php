@@ -1,24 +1,23 @@
 <?php
-
-namespace Source;
-
 include_once "cabecalho.php";  
 
 
 
-$categoria = new Categoria();
+//$categoria = new Categoria();
+$categoria = $container['categoria'];
 $categoria->setId(1);
 
-$serviceC = new ServiceCategoria($conexao,$categoria);
+//$serviceC = new ServiceCategoria($conexao,$categoria);
 
-$categorias = $serviceC->listaCategorias();
+$categorias = $container['ServiceCategoria']->listaCategorias();
 
 
 
-$produto = new Produto();
-$produto->setCategoria($categoria);
+$produto = $container['produto'];
+$produto->setCategoria($categoria)
+        ->setUsado("");
 
-$usado = "";
+
 verificaLogado();
 
 ?>

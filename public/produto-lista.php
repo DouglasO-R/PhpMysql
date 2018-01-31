@@ -1,18 +1,16 @@
 <?php
-namespace Source;
-
 include_once "cabecalho.php"; 
-include_once "../vendor/autoload.php";
+
 
 
 
 Alerta("danger");
 Alerta("success");
 
-$produto = new Produto();
-$serviceP = new ServiceProduto($conexao,$produto);
+//$produto = $container['produto'];
+//$serviceP = new ServiceProduto($conexao,$produto);
 
-$Produtos = $serviceP->listaProdutos();
+$Produtos = $container['ServiceProduto']->listaProdutos();
 
 ?>
 

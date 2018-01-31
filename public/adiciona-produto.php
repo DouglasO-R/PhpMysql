@@ -1,12 +1,10 @@
 <?php
-namespace Source;
-
 include_once "cabecalho.php";
 
    verificaLogado();
 
-    $produto = new Produto();
-    $categoria = new Categoria();
+    $produto = $container['produto'];
+    $categoria = $container['categoria'];
     $categoria->setId($_POST["categoria_id"]);
 
     $produto->setNome($_POST["nome"]);
@@ -21,9 +19,9 @@ include_once "cabecalho.php";
         $produto->setUsado(0);
     }
 
-    $serviceP = new ServiceProduto($conexao,$produto);
+    //$serviceP = new ServiceProduto($conexao,$produto);
 
-    if($serviceP->insereProduto()) {
+    if($container['ServiceProduto']->insereProduto()) {
     ?>
         <p class="alert-success">Produto <?= $produto->getNome(); ?>, <?= $produto->getPreco(); ?> adicionado com sucesso!</p>
     <?php
